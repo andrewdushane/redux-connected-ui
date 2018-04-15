@@ -12,7 +12,6 @@ const defaultState = {};
 const defaultValues = {};
 
 const handlers = {
-  // TODO: each component can only initialize its own value
   [INITIALIZE_VALUES]: (state, { payload: { nameSpace, values } }) => ({
     ...state,
     [nameSpace]: {
@@ -75,14 +74,13 @@ const handlers = {
       },
     },
   }),
-  [RESET_VALUES]: (state, { payload: { nameSpace } }) =>
-    console.log(state[nameSpace]) || {
-      ...state,
-      [nameSpace]: {
-        ...state[nameSpace],
-        values: state[nameSpace].meta.initialValues,
-      },
+  [RESET_VALUES]: (state, { payload: { nameSpace } }) => ({
+    ...state,
+    [nameSpace]: {
+      ...state[nameSpace],
+      values: state[nameSpace].meta.initialValues,
     },
+  }),
 };
 
 export default (state = defaultState, action) => {

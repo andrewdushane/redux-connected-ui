@@ -8,6 +8,7 @@ import {
   resetValue as resetValueAction,
   resetValues as resetValuesAction,
 } from "./actions";
+import { defaultStoreLocation } from "./constants";
 
 class Connected extends Component {
   componentWillMount() {
@@ -40,19 +41,17 @@ class Connected extends Component {
   }
 }
 
-const defaultStateLocation = "ui";
-
 const mapStateToProps = (
   state,
   {
     nameSpace,
     subscription,
-    stateLocation = defaultStateLocation,
+    storeLocation = defaultStoreLocation,
     initialValue,
   },
 ) => ({
-  values: state[stateLocation][nameSpace]
-    ? state[stateLocation][nameSpace].values
+  values: state[storeLocation][nameSpace]
+    ? state[storeLocation][nameSpace].values
     : { [subscription]: initialValue },
 });
 

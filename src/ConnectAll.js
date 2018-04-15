@@ -6,6 +6,7 @@ import {
   updateValues as updateValuesAction,
   resetValues as resetValuesAction,
 } from "./actions";
+import { defaultStoreLocation } from "./constants";
 
 class ConnectAll extends Component {
   componentWillMount() {
@@ -27,20 +28,18 @@ class ConnectAll extends Component {
   }
 }
 
-// TODO: set this at init, make customizable globally
-const defaultStateLocation = "ui";
 const defaultInitialValues = {};
 
 const mapStateToProps = (
   state,
   {
     nameSpace,
-    stateLocation = defaultStateLocation,
+    storeLocation = defaultStoreLocation,
     initialValues = defaultInitialValues,
   },
 ) => ({
-  values: state[stateLocation][nameSpace]
-    ? state[stateLocation][nameSpace].values
+  values: state[storeLocation][nameSpace]
+    ? state[storeLocation][nameSpace].values
     : initialValues,
 });
 
