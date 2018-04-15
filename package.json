@@ -1,7 +1,8 @@
 {
   "name": "redux-connected-ui",
-  "version": "1.1.1",
-  "description": "Components to connect UI to redux without the normal boilerplate",
+  "version": "1.0.0",
+  "description":
+    "React components to connect UI to redux without the normal boilerplate",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=\"production\"",
@@ -10,7 +11,6 @@
     "prepublish": "webpack --mode=\"production\"",
     "test": "test"
   },
-  "author": "Andrew Dushane",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -31,8 +31,15 @@
     "webpack-cli": "^2.0.14"
   },
   "peerDependencies": {
-    "react": "^16.3.1",
-    "react-redux": "^5.0.7",
-    "redux": "^3.7.2"
-  }
+    "react": "^16.2.0",
+    "react-redux": "^5.0.0",
+    "redux": "^3.0.0"
+  },
+  "author":
+    "Andrew Dushane <andrewdushane@gmail.com> (http://github.com/andrewdushane)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewdushane/redux-connected-ui"
+  },
+  "keywords": ["react", "reactjs", "redux", "react-redux"]
 }
