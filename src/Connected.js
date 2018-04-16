@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
@@ -10,7 +12,35 @@ import {
 } from "./actions";
 import { defaultStoreLocation } from "./constants";
 
-class Connected extends Component {
+type CallbackProps = {
+  updateValue: (value: any) => void,
+  updateValues: (updateValuesFn: (values: Object) => Object) => void,
+  resetValue: () => void,
+  resetValues: () => void,
+  handleInputChange: (event: SyntheticEvent<HTMLInputElement>) => void,
+  value: any,
+};
+
+type InitializeProp = {
+  initialize: () => void,
+};
+
+type ChildrenProp = {
+  children: (computedProps: CallbackProps) => React$Element<any>,
+};
+
+type FinalInternalProps = CallbackProps & InitializeProp & ChildrenProp;
+
+type ExternalProps = {
+  nameSpace: string,
+  subscription: string,
+  storeLocation: string,
+  initialValue: any,
+};
+
+type FinalExternalProps = ExternalProps & ChildrenProp;
+
+class Connected extends Component<FinalInternalProps> {
   componentWillMount() {
     this.props.initialize();
   }
@@ -100,4 +130,10 @@ const mergeProps = (
   children,
 });
 
-export default connect(mapStateToProps, dispatchProps, mergeProps)(Connected);
+const FinalConnected: (
+  props: FinalExternalProps,
+) => React$Element<any> = connect(mapStateToProps, dispatchProps, mergeProps)(
+  Connected,
+);
+
+export default FinalConnected;
