@@ -12,25 +12,25 @@ const defaultState = {};
 const defaultValues = {};
 
 const handlers = {
-  [INITIALIZE_VALUES]: (state, { payload: { nameSpace, values } }) => ({
+  [INITIALIZE_VALUES]: (state, { payload: { namespace, values } }) => ({
     ...state,
-    [nameSpace]: {
+    [namespace]: {
       meta: {
         initialValues: values,
       },
       values,
     },
   }),
-  [INITIALIZE_VALUE]: (state, { payload: { nameSpace, key, value } }) => {
+  [INITIALIZE_VALUE]: (state, { payload: { namespace, key, value } }) => {
     const currentInitialValues =
-      state[nameSpace] && state[nameSpace].meta
-        ? state[nameSpace].meta.initialValues
+      state[namespace] && state[namespace].meta
+        ? state[namespace].meta.initialValues
         : defaultValues;
     const currentValues =
-      (state[nameSpace] && state[nameSpace].values) || defaultValues;
+      (state[namespace] && state[namespace].values) || defaultValues;
     return {
       ...state,
-      [nameSpace]: {
+      [namespace]: {
         meta: {
           initialValues: {
             ...currentInitialValues,
@@ -44,41 +44,41 @@ const handlers = {
       },
     };
   },
-  [UPDATE_VALUE]: (state, { payload: { nameSpace, key, value } }) => ({
+  [UPDATE_VALUE]: (state, { payload: { namespace, key, value } }) => ({
     ...state,
-    [nameSpace]: {
-      ...state[nameSpace],
+    [namespace]: {
+      ...state[namespace],
       values: {
-        ...state[nameSpace].values,
+        ...state[namespace].values,
         [key]: value,
       },
     },
   }),
-  [UPDATE_VALUES]: (state, { payload: { nameSpace, values } }) => ({
+  [UPDATE_VALUES]: (state, { payload: { namespace, values } }) => ({
     ...state,
-    [nameSpace]: {
-      ...state[nameSpace],
+    [namespace]: {
+      ...state[namespace],
       values: {
-        ...state[nameSpace].values,
+        ...state[namespace].values,
         ...values,
       },
     },
   }),
-  [RESET_VALUE]: (state, { payload: { nameSpace, key } }) => ({
+  [RESET_VALUE]: (state, { payload: { namespace, key } }) => ({
     ...state,
-    [nameSpace]: {
-      ...state[nameSpace],
+    [namespace]: {
+      ...state[namespace],
       values: {
-        ...state[nameSpace].values,
-        [key]: state[nameSpace].meta.initialValues[key],
+        ...state[namespace].values,
+        [key]: state[namespace].meta.initialValues[key],
       },
     },
   }),
-  [RESET_VALUES]: (state, { payload: { nameSpace } }) => ({
+  [RESET_VALUES]: (state, { payload: { namespace } }) => ({
     ...state,
-    [nameSpace]: {
-      ...state[nameSpace],
-      values: state[nameSpace].meta.initialValues,
+    [namespace]: {
+      ...state[namespace],
+      values: state[namespace].meta.initialValues,
     },
   }),
 };

@@ -33,13 +33,13 @@ const defaultInitialValues = {};
 const mapStateToProps = (
   state,
   {
-    nameSpace,
+    namespace,
     storeLocation = defaultStoreLocation,
     initialValues = defaultInitialValues,
   },
 ) => ({
-  values: state[storeLocation][nameSpace]
-    ? state[storeLocation][nameSpace].values
+  values: state[storeLocation][namespace]
+    ? state[storeLocation][namespace].values
     : initialValues,
 });
 
@@ -52,19 +52,19 @@ const dispatchProps = {
 const mergeProps = (
   { values },
   { initializesValueAction, updateValuesAction, resetValuesAction },
-  { initialValues, nameSpace, children },
+  { initialValues, namespace, children },
 ) => ({
   initialize: () => {
     initializeValuesAction({
-      nameSpace,
+      namespace,
       values: initialValues,
     });
   },
   updateValues: updateFn => {
-    updateValuesAction({ nameSpace, values: updateFn(values) });
+    updateValuesAction({ namespace, values: updateFn(values) });
   },
   resetValues: () => {
-    resetValuesAction({ nameSpace });
+    resetValuesAction({ namespace });
   },
   values,
   children,

@@ -44,14 +44,14 @@ class Connected extends Component {
 const mapStateToProps = (
   state,
   {
-    nameSpace,
+    namespace,
     subscription,
     storeLocation = defaultStoreLocation,
     initialValue,
   },
 ) => ({
-  values: state[storeLocation][nameSpace]
-    ? state[storeLocation][nameSpace].values
+  values: state[storeLocation][namespace]
+    ? state[storeLocation][namespace].values
     : { [subscription]: initialValue },
 });
 
@@ -72,29 +72,29 @@ const mergeProps = (
     resetValueAction,
     resetValuesAction,
   },
-  { initialValue, nameSpace, subscription, children },
+  { initialValue, namespace, subscription, children },
 ) => ({
   initialize: () => {
     initializeValueAction({
-      nameSpace,
+      namespace,
       key: subscription,
       value: initialValue,
     });
   },
   updateValue: value => {
-    updateValueAction({ nameSpace, key: subscription, value });
+    updateValueAction({ namespace, key: subscription, value });
   },
   updateValues: updateFn => {
-    updateValuesAction({ nameSpace, values: updateFn(values) });
+    updateValuesAction({ namespace, values: updateFn(values) });
   },
   resetValue: () => {
-    resetValueAction({ nameSpace, key: subscription });
+    resetValueAction({ namespace, key: subscription });
   },
   resetValues: () => {
-    resetValuesAction({ nameSpace });
+    resetValuesAction({ namespace });
   },
   handleInputChange: ({ target: { value } }) => {
-    updateValueAction({ nameSpace, key: subscription, value });
+    updateValueAction({ namespace, key: subscription, value });
   },
   value: values[subscription],
   children,

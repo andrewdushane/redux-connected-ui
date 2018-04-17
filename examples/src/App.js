@@ -8,11 +8,11 @@ class App extends Component {
     return (
       <Provider store={createStore()}>
         <div>
-          <ConnectAll nameSpace="example">
+          <ConnectAll namespace="example">
             {({ resetValues }) => <button onClick={resetValues}>Reset</button>}
           </ConnectAll>
           <Connected
-            nameSpace="example"
+            namespace="example"
             subscription="someTextInput"
             initialValue="wutz"
           >
@@ -25,7 +25,7 @@ class App extends Component {
             )}
           </Connected>
           <Connected
-            nameSpace="example"
+            namespace="example"
             subscription="anotherTextInput"
             initialValue="wat"
           >
@@ -38,7 +38,7 @@ class App extends Component {
             )}
           </Connected>
           <Connected
-            nameSpace="example"
+            namespace="example"
             subscription="bgColor"
             initialValue="red"
           >

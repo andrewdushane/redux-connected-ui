@@ -5749,7 +5749,7 @@ reduce-function-call@^1.0.1:
     balanced-match "^0.4.2"
 
 redux-connected-ui@../:
-  version "1.0.0"
+  version "1.0.1"
 
 redux@^3.7.2:
   version "3.7.2"
