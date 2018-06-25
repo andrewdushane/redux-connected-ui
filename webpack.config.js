@@ -28,7 +28,7 @@ module.exports = {
     filename: "index.js",
     library: "ReduxConnectedUi",
     libraryTarget: "umd",
-    globalObject: "self",
+    globalObject: "this",
   },
   module: {
     rules: [
