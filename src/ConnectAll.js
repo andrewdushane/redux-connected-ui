@@ -7,6 +7,7 @@ import {
   resetValues as resetValuesAction,
 } from "./actions";
 import { defaultStoreLocation } from "./constants";
+import { create } from "domain";
 
 class ConnectAll extends Component {
   componentWillMount() {
@@ -30,13 +31,9 @@ class ConnectAll extends Component {
 
 const defaultInitialValues = {};
 
-const mapStateToProps = (
+const mapStateToProps = (storeLocation = defaultStoreLocation) => (
   state,
-  {
-    namespace,
-    storeLocation = defaultStoreLocation,
-    initialValues = defaultInitialValues,
-  },
+  { namespace, initialValues = defaultInitialValues },
 ) => ({
   values: state[storeLocation][namespace]
     ? state[storeLocation][namespace].values
@@ -70,4 +67,11 @@ const mergeProps = (
   children,
 });
 
-export default connect(mapStateToProps, dispatchProps, mergeProps)(ConnectAll);
+export const createConnectAll = storeLocation =>
+  connect(
+    mapStateToProps(storeLocation),
+    dispatchProps,
+    mergeProps,
+  )(ConnectAll);
+
+export default createConnectAll();

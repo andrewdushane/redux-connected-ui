@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Provider } from "react-redux";
 import createStore from "./store";
 import { Connected, ConnectAll } from "redux-connected-ui";
+import { ConnectedAtOtherUi } from "./OtherLocationConnect";
 
 class App extends Component {
   render() {
@@ -51,6 +52,22 @@ class App extends Component {
               />
             )}
           </Connected>
+          <div style={{ break: "both", float: "none" }}>
+            <ConnectedAtOtherUi
+              namespace="another-ui"
+              subscription="somethingElse"
+              initialValue="blue"
+            >
+              {({ value, updateValue }) => (
+                <div
+                  style={{ height: 20, width: 20, backgroundColor: value }}
+                  onClick={() => {
+                    updateValue(value === "red" ? "blue" : "red");
+                  }}
+                />
+              )}
+            </ConnectedAtOtherUi>
+          </div>
         </div>
       </Provider>
     );

@@ -41,14 +41,9 @@ class Connected extends Component {
   }
 }
 
-const mapStateToProps = (
+const mapStateToProps = (storeLocation = defaultStoreLocation) => (
   state,
-  {
-    namespace,
-    subscription,
-    storeLocation = defaultStoreLocation,
-    initialValue,
-  },
+  { namespace, subscription, initialValue },
 ) => ({
   values: state[storeLocation][namespace]
     ? state[storeLocation][namespace].values
@@ -100,4 +95,11 @@ const mergeProps = (
   children,
 });
 
-export default connect(mapStateToProps, dispatchProps, mergeProps)(Connected);
+export const createConnected = storeLocation =>
+  connect(
+    mapStateToProps(storeLocation),
+    dispatchProps,
+    mergeProps,
+  )(Connected);
+
+export default createConnected();

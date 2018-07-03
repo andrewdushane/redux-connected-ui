@@ -21,7 +21,7 @@ import { connectedReducer } from "redux-connected-ui";
 
 const rootReducer = combineReducers({
   // redux-connected-ui expects to be at the "ui" key of your store
-  // if you need to use a different key, see the `storeLocation` prop below
+  // if you need to use a different key, see "Using a different key" below
   ui: connectedReducer,
   ...reducers, // your other reducers
 });
@@ -89,13 +89,12 @@ In this example, the values from the `Connected` components will be in the store
 
 #### Props
 
-| Prop          | Type                           | Required | Default   | Description                                                                                                                                                                                                                                           |
-| ------------- | ------------------------------ | -------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children      | (renderProps) => React Element | yes      | undefined | Children is a function that accepts the argument described below and returns a React element, typically would be JSX. The children function can be declared as nested JSX (as in the example above) or passed explicitly as `children` to `Connected` |
-| namespace     | string                         | yes      | undefined | The namespace in which to read/write the subscribed key/value                                                                                                                                                                                         |
-| subscription  | string                         | yes      | undefined | The key at which to read/write the subscribed value                                                                                                                                                                                                   |
-| initialValue  | any                            | no       | undefined | The initial value for the subcribed key                                                                                                                                                                                                               |
-| storeLocation | string                         | no       | "ui"      | The redux store key at which the redux-connected-ui reducer is mounted. If you mount the reducer somewhere other than "ui", that key must be passed to each instance of `Connected`.                                                                  |
+| Prop         | Type                           | Required | Default   | Description                                                                                                                                                                                                                                           |
+| ------------ | ------------------------------ | -------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| children     | (renderProps) => React Element | yes      | undefined | Children is a function that accepts the argument described below and returns a React element, typically would be JSX. The children function can be declared as nested JSX (as in the example above) or passed explicitly as `children` to `Connected` |
+| namespace    | string                         | yes      | undefined | The namespace in which to read/write the subscribed key/value                                                                                                                                                                                         |
+| subscription | string                         | yes      | undefined | The key at which to read/write the subscribed value                                                                                                                                                                                                   |
+| initialValue | any                            | no       | undefined | The initial value for the subcribed key                                                                                                                                                                                                               |
 
 #### `children` prop render function argument
 
@@ -117,7 +116,6 @@ In this example, the values from the `Connected` components will be in the store
 | children      | (renderProps) => React Element | yes      | undefined | Children is a function that accepts the argument described below and returns a React element, typically would be JSX. The children function can be declared as nested JSX (as in the example above) or passed explicitly as `children` to `ConnectAll` |
 | namespace     | string                         | yes      | undefined | The namespace to be subscribed to                                                                                                                                                                                                                      |
 | initialValues | Object                         | no       | undefined | The initial values for the subcribed namespace. Note that this should only be used if no `Connected` component sets any `initialValue` for the same namespace.                                                                                         |
-| storeLocation | string                         | no       | "ui"      | The redux store key at which the redux-connected-ui reducer is mounted. If you mount the reducer somewhere other than "ui", that key must be passed to each instance of `ConnectAll`.                                                                  |
 
 #### `children` prop render function argument
 
@@ -126,3 +124,30 @@ In this example, the values from the `Connected` components will be in the store
 | values       | any                                                                    | The current values of the component’s `namespace`                                                                                                                          |
 | updateValues | (updateFunction: (currentValues: Object) => newValues: Object) => void | Function accepts a single argument of a function that receives the current values of the component’s `namespace` and must return the entire new values for the `namespace` |
 | resetValues  | () => void                                                             | Function restores all values in the component’s `namespace` to their `initialValue`                                                                                        |
+
+## Using a different key
+
+This library exports `createConnected` and `createConnectAll` functions for connecting UI at a store key other than "ui". Usage at "otherUi" is something like this:
+
+```javascript
+// MyConnectedComponents.js
+import { createConnected, createConnectAll } from "redux-connected-ui";
+const location = "otherUi";
+export const ConnectedAtOtherUi = createConnected(location);
+export const ConnectAllAtOtherUi = createConnectAll(location);
+```
+
+```javascript
+// store.js
+import { createStore, combineReducers } from "redux";
+import { connectedReducer } from "redux-connected-ui";
+
+const rootReducer = combineReducers({
+  // redux-connected-ui expects to be at the "ui" key of your store
+  // if you need to use a different key, see "Using a different key" below
+  otherUi: connectedReducer,
+  ...reducers, // your other reducers
+});
+
+const store = createStore(rootReducer);
+```

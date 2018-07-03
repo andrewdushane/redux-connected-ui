@@ -11,6 +11,7 @@ const finalCreateStore = production ? createStore : enableDevTools(createStore);
 
 const rootReducer = combineReducers({
   ui: connectedReducer,
+  otherUi: connectedReducer,
 });
 
 export default () => finalCreateStore(rootReducer);
