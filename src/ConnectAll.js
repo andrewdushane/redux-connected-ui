@@ -7,7 +7,6 @@ import {
   resetValues as resetValuesAction,
 } from "./actions";
 import { defaultStoreLocation } from "./constants";
-import { create } from "domain";
 
 class ConnectAll extends Component {
   componentWillMount() {
@@ -48,7 +47,7 @@ const dispatchProps = {
 
 const mergeProps = (
   { values },
-  { initializesValueAction, updateValuesAction, resetValuesAction },
+  { initializeValuesAction, updateValuesAction, resetValuesAction },
   { initialValues, namespace, children },
 ) => ({
   initialize: () => {
