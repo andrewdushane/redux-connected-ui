@@ -4,10 +4,11 @@
   "description": "React components to connect UI to redux without the normal boilerplate",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode=\"production\"",
-    "build-dev": "webpack --mode=\"development\"",
+    "build-prod": "cross-env NODE_ENV=\"production\" webpack",
+    "build-dev": "cross-env NODE_ENV=\"development\" webpack",
+    "build": "npm run build-dev && npm run build-prod",
     "lint": "eslint ./src",
-    "prepublish": "webpack --mode=\"production\"",
+    "prepublishOnly": "npm run build",
     "test": "test"
   },
   "license": "MIT",
@@ -20,6 +21,7 @@
     "babel-preset-babili": "^0.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.2.0",
     "eslint": "^4.19.1",
     "eslint-config-react-app": "^2.1.0",
     "eslint-plugin-flowtype": "^2.34.1",

@@ -1,5 +1,7 @@
 const path = require("path");
 
+const isDev = process.env.NODE_ENV !== "production";
+
 const reactExternal = {
   root: "React",
   commonjs2: "react",
@@ -25,7 +27,7 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname),
-    filename: "index.js",
+    filename: isDev ? "index.js" : "index.min.js",
     library: "ReduxConnectedUi",
     libraryTarget: "umd",
     globalObject: "this",
@@ -46,4 +48,5 @@ module.exports = {
     redux: reduxExternal,
     "react-redux": reactReduxExternal,
   },
+  mode: isDev ? "development" : "production",
 };
