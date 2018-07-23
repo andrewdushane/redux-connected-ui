@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 const isDev = process.env.NODE_ENV !== "production";
 
@@ -27,7 +28,7 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname),
-    filename: isDev ? "index.js" : "index.min.js",
+    filename: isDev ? "index.dev.js" : "index.prod.min.js",
     library: "ReduxConnectedUi",
     libraryTarget: "umd",
     globalObject: "this",
@@ -49,4 +50,5 @@ module.exports = {
     "react-redux": reactReduxExternal,
   },
   mode: isDev ? "development" : "production",
+  plugins: [new webpack.EnvironmentPlugin(["NODE_ENV"])],
 };

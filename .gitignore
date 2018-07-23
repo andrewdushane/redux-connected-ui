@@ -1,5 +1,5 @@
 # Build
-index.js
+index.prod.min.js
 index.min.js
 
 # Logs
