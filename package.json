@@ -34,7 +34,7 @@
   "peerDependencies": {
     "react": "^16.2.0",
     "react-redux": "^5.0.0",
-    "redux": "^3.0.0"
+    "redux": "^3.0.0 || ^4.0.0"
   },
   "author": "Andrew Dushane <andrewdushane@gmail.com> (http://github.com/andrewdushane)",
   "repository": {
