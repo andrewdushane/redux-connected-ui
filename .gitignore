@@ -1,6 +1,6 @@
 # Build
 index.prod.min.js
-index.min.js
+index.dev.js
 
 # Logs
 logs
