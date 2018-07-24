@@ -70,11 +70,13 @@ const mergeProps = (
   { initialValue, namespace, subscription, children },
 ) => ({
   initialize: () => {
-    initializeValueAction({
-      namespace,
-      key: subscription,
-      value: initialValue,
-    });
+    if (initialValue !== undefined) {
+      initializeValueAction({
+        namespace,
+        key: subscription,
+        value: initialValue,
+      });
+    }
   },
   updateValue: value => {
     updateValueAction({ namespace, key: subscription, value });
