@@ -51,10 +51,12 @@ const mergeProps = (
   { initialValues, namespace, children },
 ) => ({
   initialize: () => {
-    initializeValuesAction({
-      namespace,
-      values: initialValues,
-    });
+    if (initialValues) {
+      initializeValuesAction({
+        namespace,
+        values: initialValues,
+      });
+    }
   },
   updateValues: updateFn => {
     updateValuesAction({ namespace, values: updateFn(values) });
