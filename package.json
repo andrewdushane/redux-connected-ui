@@ -1,6 +1,6 @@
 {
   "name": "redux-connected-ui",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "React components to connect UI to redux without the normal boilerplate",
   "main": "index.js",
   "scripts": {
