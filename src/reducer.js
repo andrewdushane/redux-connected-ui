@@ -44,43 +44,67 @@ const handlers = {
       },
     };
   },
-  [UPDATE_VALUE]: (state, { payload: { namespace, key, value } }) => ({
-    ...state,
-    [namespace]: {
-      ...state[namespace],
-      values: {
-        ...state[namespace].values,
-        [key]: value,
+  [UPDATE_VALUE]: (state, { payload: { namespace, key, value } }) => {
+    const currentValues =
+      (state[namespace] && state[namespace].values) || defaultValues;
+    return {
+      ...state,
+      [namespace]: {
+        ...state[namespace],
+        values: {
+          ...currentValues,
+          [key]: value,
+        },
       },
-    },
-  }),
-  [UPDATE_VALUES]: (state, { payload: { namespace, values } }) => ({
-    ...state,
-    [namespace]: {
-      ...state[namespace],
-      values: {
-        ...state[namespace].values,
-        ...values,
+    };
+  },
+  [UPDATE_VALUES]: (state, { payload: { namespace, values } }) => {
+    const currentValues =
+      (state[namespace] && state[namespace].values) || defaultValues;
+    return {
+      ...state,
+      [namespace]: {
+        ...state[namespace],
+        values: {
+          ...currentValues,
+          ...values,
+        },
       },
-    },
-  }),
-  [RESET_VALUE]: (state, { payload: { namespace, key } }) => ({
-    ...state,
-    [namespace]: {
-      ...state[namespace],
-      values: {
-        ...state[namespace].values,
-        [key]: state[namespace].meta.initialValues[key],
+    };
+  },
+  [RESET_VALUE]: (state, { payload: { namespace, key } }) => {
+    const currentValues =
+      (state[namespace] && state[namespace].values) || defaultValues;
+    const initialValues =
+      (state[namespace] &&
+        state[namespace].meta &&
+        state[namespace].meta.initialValues) ||
+      defaultValues;
+    return {
+      ...state,
+      [namespace]: {
+        ...state[namespace],
+        values: {
+          ...currentValues,
+          [key]: initialValues[key],
+        },
       },
-    },
-  }),
-  [RESET_VALUES]: (state, { payload: { namespace } }) => ({
-    ...state,
-    [namespace]: {
-      ...state[namespace],
-      values: state[namespace].meta.initialValues,
-    },
-  }),
+    };
+  },
+  [RESET_VALUES]: (state, { payload: { namespace } }) => {
+    const initialValues =
+      (state[namespace] &&
+        state[namespace].meta &&
+        state[namespace].meta.initialValues) ||
+      defaultValues;
+    return {
+      ...state,
+      [namespace]: {
+        ...state[namespace],
+        values: initialValues,
+      },
+    };
+  },
 };
 
 export default (state = defaultState, action) => {
