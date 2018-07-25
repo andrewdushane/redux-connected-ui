@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Provider } from "react-redux";
 import createStore from "./store";
 import { Connected, ConnectAll } from "redux-connected-ui";
-import { ConnectedAtOtherUi } from "./OtherLocationConnect";
+import { ConnectedAtOtherUi, ConnectAllAtOtherUi } from "./OtherLocationConnect";
 
 class App extends Component {
   render() {
@@ -10,7 +10,25 @@ class App extends Component {
       <Provider store={createStore()}>
         <div>
           <ConnectAll namespace="example">
-            {({ resetValues }) => <button onClick={resetValues}>Reset</button>}
+            {({ values, updateValues, resetValues }) => (
+              <div>
+                <button onClick={resetValues}>Reset</button>
+                <textarea
+                  rows={10}
+                  cols={50}
+                  value={JSON.stringify(values, null, 2)}
+                  onChange={({target: {value}}) => {
+                    let newValues; 
+                    try {
+                      newValues = JSON.parse(value)
+                    } catch (e) {
+                      return
+                    }
+                    updateValues((currentValues) => ({...currentValues, ...newValues}));
+                  }}
+                ></textarea>
+              </div>
+            )}
           </ConnectAll>
           <Connected
             namespace="example"
@@ -67,6 +85,27 @@ class App extends Component {
                 />
               )}
             </ConnectedAtOtherUi>
+          <ConnectAllAtOtherUi namespace="another-ui">
+            {({ values, updateValues, resetValues }) => (
+              <div>
+                <button onClick={resetValues}>Reset</button>
+                <textarea
+                  rows={10}
+                  cols={50}
+                  value={JSON.stringify(values, null, 2)}
+                  onChange={({target: {value}}) => {
+                    let newValues; 
+                    try {
+                      newValues = JSON.parse(value)
+                    } catch (e) {
+                      return
+                    }
+                    updateValues((currentValues) => ({...currentValues, ...newValues}));
+                  }}
+                ></textarea>
+              </div>
+            )}
+          </ConnectAllAtOtherUi>
           </div>
         </div>
       </Provider>
