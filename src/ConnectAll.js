@@ -51,7 +51,7 @@ const mergeProps = (
   { initialValues, namespace, children },
 ) => ({
   initialize: () => {
-    if (initialValues) {
+    if (typeof initialValues !== "undefined") {
       initializeValuesAction({
         namespace,
         values: initialValues,
