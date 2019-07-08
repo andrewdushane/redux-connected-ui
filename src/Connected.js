@@ -7,12 +7,17 @@ import {
   updateValues as updateValuesAction,
   resetValue as resetValueAction,
   resetValues as resetValuesAction,
+  clearValue as clearValueAction,
 } from "./actions";
 import { defaultStoreLocation } from "./constants";
 
 class Connected extends Component {
   componentWillMount() {
     this.props.initialize();
+  }
+
+  componentWillUnmount() {
+    this.props.clearValue();
   }
 
   render() {
@@ -56,6 +61,7 @@ const dispatchProps = {
   updateValuesAction,
   resetValueAction,
   resetValuesAction,
+  clearValueAction,
 };
 
 const mergeProps = (
@@ -66,6 +72,7 @@ const mergeProps = (
     updateValuesAction,
     resetValueAction,
     resetValuesAction,
+    clearValueAction,
   },
   { initialValue, namespace, subscription, children },
 ) => ({
@@ -89,6 +96,9 @@ const mergeProps = (
   },
   resetValues: () => {
     resetValuesAction({ namespace });
+  },
+  clearValue: () => {
+    clearValueAction({ namespace, key: subscription });
   },
   handleInputChange: ({ target: { value } }) => {
     updateValueAction({ namespace, key: subscription, value });

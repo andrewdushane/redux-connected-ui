@@ -5,12 +5,17 @@ import {
   initializeValues as initializeValuesAction,
   updateValues as updateValuesAction,
   resetValues as resetValuesAction,
+  clearValues as clearValuesAction,
 } from "./actions";
 import { defaultStoreLocation } from "./constants";
 
 class ConnectAll extends Component {
   componentWillMount() {
     this.props.initialize();
+  }
+
+  componentWillUnmount() {
+    this.props.clearValues();
   }
 
   render() {
@@ -43,11 +48,17 @@ const dispatchProps = {
   initializeValuesAction,
   updateValuesAction,
   resetValuesAction,
+  clearValuesAction,
 };
 
 const mergeProps = (
   { values },
-  { initializeValuesAction, updateValuesAction, resetValuesAction },
+  {
+    initializeValuesAction,
+    updateValuesAction,
+    resetValuesAction,
+    clearValuesAction,
+  },
   { initialValues, namespace, children },
 ) => ({
   initialize: () => {
@@ -63,6 +74,9 @@ const mergeProps = (
   },
   resetValues: () => {
     resetValuesAction({ namespace });
+  },
+  clearValues: () => {
+    clearValuesAction({ namespace });
   },
   values,
   children,

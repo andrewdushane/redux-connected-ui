@@ -9,3 +9,5 @@ export const UPDATE_VALUE = createActionString("UPDATE_VALUE");
 export const UPDATE_VALUES = createActionString("UPDATE_VALUES");
 export const RESET_VALUE = createActionString("RESET_VALUE");
 export const RESET_VALUES = createActionString("RESET_VALUES");
+export const CLEAR_VALUE = createActionString("CLEAR_VALUE");
+export const CLEAR_VALUES = createActionString("CLEAR_VALUES");

@@ -5,6 +5,8 @@ import {
   UPDATE_VALUES,
   RESET_VALUE,
   RESET_VALUES,
+  CLEAR_VALUE,
+  CLEAR_VALUES,
 } from "./actionTypes";
 
 const defaultState = {};
@@ -102,6 +104,27 @@ const handlers = {
       [namespace]: {
         ...state[namespace],
         values: initialValues,
+      },
+    };
+  },
+  [CLEAR_VALUE]: (state, { payload: { namespace, key } }) => {
+    const currentValues =
+      (state[namespace] && state[namespace].values) || defaultValues;
+    const { [key]: valueToDiscard, ...valuesToRetain } = currentValues;
+    return {
+      ...state,
+      [namespace]: {
+        ...state[namespace],
+        values: valuesToRetain,
+      },
+    };
+  },
+  [CLEAR_VALUES]: (state, { payload: { namespace } }) => {
+    return {
+      ...state,
+      [namespace]: {
+        meta: {},
+        values: defaultValues,
       },
     };
   },
