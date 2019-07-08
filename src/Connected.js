@@ -17,7 +17,9 @@ class Connected extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearValue();
+    if (!this.props.retainValueOnDestroy) {
+      this.props.clearValue();
+    }
   }
 
   render() {
@@ -74,7 +76,13 @@ const mergeProps = (
     resetValuesAction,
     clearValueAction,
   },
-  { initialValue, namespace, subscription, children },
+  {
+    initialValue,
+    namespace,
+    subscription,
+    children,
+    retainValueOnDestroy = false,
+  },
 ) => ({
   initialize: () => {
     if (initialValue !== undefined) {
@@ -105,6 +113,7 @@ const mergeProps = (
   },
   value: values[subscription],
   children,
+  retainValueOnDestroy,
 });
 
 export const createConnected = storeLocation =>

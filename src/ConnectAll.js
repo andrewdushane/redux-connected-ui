@@ -15,7 +15,9 @@ class ConnectAll extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearValues();
+    if (!this.props.retainValuesOnDestroy) {
+      this.props.clearValues();
+    }
   }
 
   render() {
@@ -59,7 +61,7 @@ const mergeProps = (
     resetValuesAction,
     clearValuesAction,
   },
-  { initialValues, namespace, children },
+  { initialValues, namespace, children, retainValuesOnDestroy = false },
 ) => ({
   initialize: () => {
     if (initialValues) {
@@ -80,6 +82,7 @@ const mergeProps = (
   },
   values,
   children,
+  retainValuesOnDestroy,
 });
 
 export const createConnectAll = storeLocation =>
